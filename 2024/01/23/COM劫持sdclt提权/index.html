@@ -7,7 +7,7 @@
 <meta property="og:locale" content="en_US">
 <meta property="og:image" content="https://clovershrub.github.io/img/COM%E5%8A%AB%E6%8C%81sdclt%E6%8F%90%E6%9D%83/cover.png">
 <meta property="article:published_time" content="2024-01-22T16:00:00.000Z">
-<meta property="article:modified_time" content="2024-01-24T07:01:54.068Z">
+<meta property="article:modified_time" content="2024-01-24T11:56:05.827Z">
 <meta property="article:author" content="Clovershrub">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="https://clovershrub.github.io/img/COM%E5%8A%AB%E6%8C%81sdclt%E6%8F%90%E6%9D%83/cover.png"><link rel="shortcut icon" href="/img/blogs/avatar.jpg"><link rel="canonical" href="https://clovershrub.github.io/2024/01/23/COM%E5%8A%AB%E6%8C%81sdclt%E6%8F%90%E6%9D%83/index.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox/fancybox.min.css" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = {
@@ -55,7 +55,7 @@
   isHome: false,
   isHighlightShrink: false,
   isToc: true,
-  postUpdate: '2024-01-24 15:01:54'
+  postUpdate: '2024-01-24 19:56:05'
 }</script><noscript><style type="text/css">
   #nav {
     opacity: 1
@@ -184,7 +184,7 @@
   }
 })()</script><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="/img/blogs/avatar.jpg" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="sidebar-site-data site-data is-center"><a href="/archives/"><div class="headline">Articles</div><div class="length-num">16</div></a><a href="/tags/"><div class="headline">Tags</div><div class="length-num">0</div></a><a href="/categories/"><div class="headline">Categories</div><div class="length-num">0</div></a></div><hr class="custom-hr"/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> Link</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url('/img/COM%E5%8A%AB%E6%8C%81sdclt%E6%8F%90%E6%9D%83/cover.png')"><nav id="nav"><span id="blog-info"><a href="/" title="Clovershrub"></a></span><div id="menus"><div class="menus_items"><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> Link</span></a></div></div><div id="toggle-menu"><a class="site-page" href="javascript:void(0);"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">COM劫持sdclt提权</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="fa-fw post-meta-icon far fa-calendar-alt"></i><span class="post-meta-label">Created</span><time datetime="2024-01-22T16:00:00.000Z" title="Created 2024-01-23 00:00:00">2024-01-23</time></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="COM劫持sdclt提权"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">Post Views:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><h1 id="COM劫持sdclt提权"><a href="#COM劫持sdclt提权" class="headerlink" title="COM劫持sdclt提权"></a>COM劫持sdclt提权</h1><h2 id="COM劫持"><a href="#COM劫持" class="headerlink" title="COM劫持"></a>COM劫持</h2><h3 id="COM组件"><a href="#COM组件" class="headerlink" title="COM组件"></a>COM组件</h3><p>COM是Component Object Model(组件对象模型)的缩写。<br>COM是微软公司为了计算机工业的软件生产更加符合人类的行为方式开发的一种新的软件开发技术。在COM构架下，人们可以开发出各种各样的功能专一的组件，然后将它们按照需要组合起来，构成复杂的应用系统。<br>COM是开发软件组件的一种方法。组件实际上是一些小的二进制可执行程序，它们可以给应用程序，操作系统以及其他组件提供服务。开发自定义的COM组件就如同开发动态的，面向对象的API。多个COM对象可以连接起来形成应用程序或组件系统。并且组件可以在运行时刻，在不被重新链接或编译应用程序的情况下被卸下或替换掉。Microsoft的许多技术，如ActiveX, DirectX以及OLE等都是基于COM而建立起来的。并且Microsoft的开发人员也大量使用COM组件来定制他们的应用程序及操作系统。<br>COM组件主要是解决了代码共用以及版本问题、能够调用其他软件的功能、所有代码都能够面向对象</p>
 <p>翻译成人话：COM是一些dll或者exe文件。你的程序由各种API实现，API由各种COM组件实现。</p>
-<h3 id="注册表"><a href="#注册表" class="headerlink" title="注册表"></a>注册表</h3><p>CLSID(Class Identifier)是与某一个类对象相联系的唯一标记。它是一个128位的数，常用16进制表示。相当于COm组件的身份证。微软设计了一种算法使得每一个不同的COM组件都有不同的CLSID。理论上如果一台机器每秒产生1000万个标识，则可以保证（概率意义上）3240年不重复。</p>
+<h3 id="注册表"><a href="#注册表" class="headerlink" title="注册表"></a>注册表</h3><p>CLSID(Class Identifier)是与某一个类对象相联系的唯一标记。它是一个128位的数，常用16进制表示。相当于COM组件的身份证。微软设计了一种算法使得每一个不同的COM组件都有不同的CLSID。理论上如果一台机器每秒产生1000万个标识，则可以保证（概率意义上）3240年不重复。</p>
 <p>注册表中则存储了这些标识，当一个COM组件被加载时，它会依次寻找：</p>
 <ul>
 <li>HKCU\Software\Classes\CLSID</li>
