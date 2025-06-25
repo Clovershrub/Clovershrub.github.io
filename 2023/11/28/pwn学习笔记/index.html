@@ -1,13 +1,13 @@
-<!DOCTYPE html><html lang="en" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>pwn你妈 | Clovershrub</title><meta name="author" content="Clovershrub"><meta name="copyright" content="Clovershrub"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="UAF [攻防世界] hacknote 这道题跟ctfwiki上的有点不同，它不再拥有magic()函数。 先申请两个16字节的node，此时node[0]和node[1]各占8字节，node[0]-&gt;Str和node[1]-&gt;Str所指向的空间各占16字节。 依次释放node[0]和node[1]，fastbin链表为node[1]-&gt;node[0]。 此时申请一个8字节的no">
+<!DOCTYPE html><html lang="en" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>pwn学习笔记 | Clovershrub</title><meta name="author" content="Clovershrub"><meta name="copyright" content="Clovershrub"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="UAF [攻防世界] hacknote 这道题跟ctfwiki上的有点不同，它不再拥有magic()函数。 先申请两个16字节的node，此时node[0]和node[1]各占8字节，node[0]-&gt;Str和node[1]-&gt;Str所指向的空间各占16字节。 依次释放node[0]和node[1]，fastbin链表为node[1]-&gt;node[0]。 此时申请一个8字节的no">
 <meta property="og:type" content="article">
-<meta property="og:title" content="pwn你妈">
+<meta property="og:title" content="pwn学习笔记">
 <meta property="og:url" content="https://clovershrub.github.io/2023/11/28/pwn%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/index.html">
 <meta property="og:site_name" content="Clovershrub">
 <meta property="og:description" content="UAF [攻防世界] hacknote 这道题跟ctfwiki上的有点不同，它不再拥有magic()函数。 先申请两个16字节的node，此时node[0]和node[1]各占8字节，node[0]-&gt;Str和node[1]-&gt;Str所指向的空间各占16字节。 依次释放node[0]和node[1]，fastbin链表为node[1]-&gt;node[0]。 此时申请一个8字节的no">
 <meta property="og:locale" content="en_US">
 <meta property="og:image" content="https://clovershrub.github.io/img/pwn%E4%BD%A0%E5%A6%88/cover.jpg">
 <meta property="article:published_time" content="2023-11-27T16:00:00.000Z">
-<meta property="article:modified_time" content="2025-06-25T12:22:38.844Z">
+<meta property="article:modified_time" content="2025-06-25T12:28:05.840Z">
 <meta property="article:author" content="Clovershrub">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="https://clovershrub.github.io/img/pwn%E4%BD%A0%E5%A6%88/cover.jpg"><link rel="shortcut icon" href="/img/blogs/avatar.jpg"><link rel="canonical" href="https://clovershrub.github.io/2023/11/28/pwn%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/index.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox/fancybox.min.css" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = {
@@ -50,12 +50,12 @@
   },
   autoDarkmode: false
 }</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
-  title: 'pwn你妈',
+  title: 'pwn学习笔记',
   isPost: true,
   isHome: false,
   isHighlightShrink: false,
   isToc: true,
-  postUpdate: '2025-06-25 20:22:38'
+  postUpdate: '2025-06-25 20:28:05'
 }</script><noscript><style type="text/css">
   #nav {
     opacity: 1
@@ -182,7 +182,7 @@
     document.addEventListener('pjax:send', () => { preloader.initLoading() })
     document.addEventListener('pjax:complete', () => { preloader.endLoading() })
   }
-})()</script><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="/img/blogs/avatar.jpg" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="sidebar-site-data site-data is-center"><a href="/archives/"><div class="headline">Articles</div><div class="length-num">21</div></a><a href="/tags/"><div class="headline">Tags</div><div class="length-num">0</div></a><a href="/categories/"><div class="headline">Categories</div><div class="length-num">0</div></a></div><hr class="custom-hr"/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> Link</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url('/img/pwn%E4%BD%A0%E5%A6%88/cover.jpg')"><nav id="nav"><span id="blog-info"><a href="/" title="Clovershrub"></a></span><div id="menus"><div class="menus_items"><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> Link</span></a></div></div><div id="toggle-menu"><a class="site-page" href="javascript:void(0);"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">pwn你妈</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="fa-fw post-meta-icon far fa-calendar-alt"></i><span class="post-meta-label">Created</span><time datetime="2023-11-27T16:00:00.000Z" title="Created 2023-11-28 00:00:00">2023-11-28</time></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="pwn你妈"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">Post Views:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><h2 id="uaf">UAF</h2>
+})()</script><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="/img/blogs/avatar.jpg" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="sidebar-site-data site-data is-center"><a href="/archives/"><div class="headline">Articles</div><div class="length-num">21</div></a><a href="/tags/"><div class="headline">Tags</div><div class="length-num">0</div></a><a href="/categories/"><div class="headline">Categories</div><div class="length-num">0</div></a></div><hr class="custom-hr"/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> Link</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url('/img/pwn%E4%BD%A0%E5%A6%88/cover.jpg')"><nav id="nav"><span id="blog-info"><a href="/" title="Clovershrub"></a></span><div id="menus"><div class="menus_items"><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> Link</span></a></div></div><div id="toggle-menu"><a class="site-page" href="javascript:void(0);"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">pwn学习笔记</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="fa-fw post-meta-icon far fa-calendar-alt"></i><span class="post-meta-label">Created</span><time datetime="2023-11-27T16:00:00.000Z" title="Created 2023-11-28 00:00:00">2023-11-28</time></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="pwn学习笔记"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">Post Views:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><h2 id="uaf">UAF</h2>
 <h3 id="攻防世界-hacknote">[攻防世界] hacknote</h3>
 <p>这道题跟ctfwiki上的有点不同，它不再拥有magic()函数。<br>
 先申请两个16字节的node，此时node[0]和node[1]各占8字节，<code>node[0]-&gt;Str和node[1]-&gt;Str</code>所指向的空间各占16字节。<br>
